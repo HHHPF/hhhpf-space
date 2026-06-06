@@ -203,6 +203,8 @@
       document.getElementById('vdTitle').value = '';
       document.getElementById('vdFile').value = '';
       loadData();
+    } else {
+      toast('❌ ' + (d.error || '上传失败'));
     }
   }
 

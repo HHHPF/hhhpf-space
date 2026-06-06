@@ -1,10 +1,13 @@
 {
   "videos": [
     {
-      "title": "未命名",
+      "title": "白银局捷风游龙（测试视频）",
       "date": "2026-06-06",
-      "heroes": [],
-      "map": ""
+      "heroes": [
+        "jett"
+      ],
+      "map": "其他",
+      "mp4": "uploads/1780738752533-gxk1wl.MP4"
     }
   ],
   "screenshots": []
