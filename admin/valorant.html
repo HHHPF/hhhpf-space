@@ -75,20 +75,10 @@
 
     <!-- ===== 视频管理 ===== -->
     <div class="card">
-      <h2>🎬 添加视频</h2>
+      <h2>🎬 上传本地视频</h2>
       <div class="form-group">
         <label>标题</label>
         <input type="text" id="vdTitle" placeholder="视频标题">
-      </div>
-      <div class="form-row">
-        <div class="form-group">
-          <label>B站 BV号</label>
-          <input type="text" id="vdBvid" placeholder="如 BV1xx411c7mD">
-        </div>
-        <div class="form-group">
-          <label>抖音链接</label>
-          <input type="text" id="vdDouyin" placeholder="如 https://www.douyin.com/video/xxx">
-        </div>
       </div>
       <div class="form-row">
         <div class="form-group">
@@ -104,11 +94,17 @@
           </select>
         </div>
       </div>
-      <div class="form-group">
-        <label>日期</label>
-        <input type="date" id="vdDate">
+      <div class="form-row">
+        <div class="form-group">
+          <label>日期</label>
+          <input type="date" id="vdDate">
+        </div>
+        <div class="form-group">
+          <label>视频文件（MP4）</label>
+          <input type="file" id="vdFile" accept="video/mp4,video/webm" style="display:block;font-size:14px;">
+        </div>
       </div>
-      <button class="btn btn-primary" onclick="addVideo()">➕ 添加视频</button>
+      <button class="btn btn-primary" onclick="addVideo()">⬆ 上传视频</button>
     </div>
 
     <!-- 已有视频 -->
@@ -153,7 +149,7 @@
         <li>
           <div class="item-info">
             <div class="item-title">🎬 ${esc(v.title)}</div>
-            <div class="item-meta">${v.date} · ${(v.heroes||[]).join('/')} · ${v.map} · ${v.bvid ? 'B站' : v.douyin ? '抖音' : v.mp4 ? 'MP4' : '无链接'}</div>
+            <div class="item-meta">${v.date} · ${(v.heroes||[]).join('/')} · ${v.map} · ${v.mp4 ? '本地MP4' : '无视频'}</div>
           </div>
           <div class="item-actions">
             <button class="btn btn-danger btn-sm" onclick="deleteVideo(${i})">🗑</button>
@@ -189,27 +185,23 @@
   }
 
   async function addVideo() {
-    const body = {
-      title: document.getElementById('vdTitle').value.trim(),
-      bvid: document.getElementById('vdBvid').value.trim(),
-      douyin: document.getElementById('vdDouyin').value.trim(),
-      heroes: document.getElementById('vdHeroes').value.trim(),
-      map: document.getElementById('vdMap').value,
-      date: document.getElementById('vdDate').value
-    };
-    if (!body.title) { toast('标题不能为空'); return; }
+    const title = document.getElementById('vdTitle').value.trim();
+    if (!title) { toast('标题不能为空'); return; }
 
-    const resp = await fetch('/api/valorant/videos', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(body)
-    });
+    const form = new FormData();
+    const file = document.getElementById('vdFile').files[0];
+    if (file) form.append('video', file);
+    form.append('title', title);
+    form.append('heroes', document.getElementById('vdHeroes').value.trim());
+    form.append('map', document.getElementById('vdMap').value);
+    form.append('date', document.getElementById('vdDate').value);
+
+    const resp = await fetch('/api/valorant/videos', { method: 'POST', body: form });
     const d = await resp.json();
     if (d.success) {
-      toast('✅ 视频已添加');
+      toast('✅ 视频已上传');
       document.getElementById('vdTitle').value = '';
-      document.getElementById('vdBvid').value = '';
-      document.getElementById('vdDouyin').value = '';
+      document.getElementById('vdFile').value = '';
       loadData();
     }
   }

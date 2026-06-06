@@ -1,4 +1,11 @@
 {
-  "videos": [],
+  "videos": [
+    {
+      "title": "未命名",
+      "date": "2026-06-06",
+      "heroes": [],
+      "map": ""
+    }
+  ],
   "screenshots": []
 }

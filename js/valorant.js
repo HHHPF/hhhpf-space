@@ -7,6 +7,7 @@
   let data = null;
   let activeScreenshotDate = '';
 
+  const videoGrid = document.getElementById('videoGrid');
   const screenshotsGrid = document.getElementById('screenshotsGrid');
   const dateFilterEl = document.getElementById('screenshotDateFilter');
   const lightbox = document.getElementById('lightbox');
@@ -19,10 +20,38 @@
       if (!resp.ok) throw new Error('加载失败');
       data = await resp.json();
       renderDateFilters();
+      renderVideos();
       renderScreenshots();
     } catch (err) {
-      if (screenshotsGrid) screenshotsGrid.innerHTML = `<div class="error">❌ ${err.message}</div>`;
+      if (videoGrid) videoGrid.innerHTML = `<div class="error">❌ ${err.message}</div>`;
     }
+  }
+
+  // === 视频 ===
+  function renderVideos() {
+    if (!videoGrid) return;
+    const videos = data.videos || [];
+    if (videos.length === 0) {
+      videoGrid.innerHTML = '<div class="empty">暂无视频</div>';
+      return;
+    }
+    videoGrid.innerHTML = videos.map(v => `
+      <div class="video-card">
+        <div class="video-embed">
+          ${v.mp4
+            ? `<video src="${v.mp4}" controls muted preload="metadata" playsinline style="width:100%;height:100%;object-fit:cover;"></video>`
+            : '<div style="display:flex;align-items:center;justify-content:center;height:100%;background:var(--bg-alt);font-size:3rem;">🎬</div>'}
+        </div>
+        <div class="video-info">
+          <h4>${escapeHTML(v.title)}</h4>
+          <div class="video-meta">
+            <span>🎯 ${escapeHTML((v.heroes || []).join(' / '))}</span>
+            <span>🗺 ${escapeHTML(v.map || '')}</span>
+            <span>📅 ${formatDate(v.date)}</span>
+          </div>
+        </div>
+      </div>
+    `).join('');
   }
 
   // === 截图 ===
