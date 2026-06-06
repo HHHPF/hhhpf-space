@@ -3,3 +3,10 @@ serve.ps1
 package.json
 package-lock.json
 server.js
+
+# wrangler files
+.wrangler
+.dev.vars*
+!.dev.vars.example
+.env*
+!.env.example
