@@ -1,16 +1,5 @@
 [
   {
-    "slug": "rainy-afternoon",
-    "title": "雨天的胡思乱想",
-    "date": "2026-05-25",
-    "category": "生活感悟",
-    "excerpt": "窗外的雨声像极了某种白噪音，让人既平静又容易走神。今天的随笔就是这些走神的产物。",
-    "coverColor": "#7b8fa1",
-    "coverColor2": "#4a5d6e",
-    "coverEmoji": "🌧️",
-    "file": "rainy-afternoon.md"
-  },
-  {
     "slug": "valorant-ranked-grind",
     "title": "排位日记：从白银到钻石的爬坑之路",
     "date": "2026-05-18",
