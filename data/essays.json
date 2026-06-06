@@ -1,0 +1,68 @@
+[
+  {
+    "slug": "rainy-afternoon",
+    "title": "雨天的胡思乱想",
+    "date": "2026-05-25",
+    "category": "生活感悟",
+    "excerpt": "窗外的雨声像极了某种白噪音，让人既平静又容易走神。今天的随笔就是这些走神的产物。",
+    "coverColor": "#7b8fa1",
+    "coverColor2": "#4a5d6e",
+    "coverEmoji": "🌧️",
+    "file": "rainy-afternoon.md"
+  },
+  {
+    "slug": "valorant-ranked-grind",
+    "title": "排位日记：从白银到钻石的爬坑之路",
+    "date": "2026-05-18",
+    "category": "游戏随笔",
+    "excerpt": "打了三个月的排位，终于从白银爬到了钻石。记录一下这段路上的心得和心态变化。",
+    "coverColor": "#FF4655",
+    "coverColor2": "#0f1923",
+    "coverEmoji": "🎯",
+    "file": "valorant-ranked-grind.md"
+  },
+  {
+    "slug": "campus-spring",
+    "title": "校园春天的随拍记录",
+    "date": "2026-04-12",
+    "category": "日常碎碎念",
+    "excerpt": "春天校园里的花开得正好，趁天气好随手拍了一些照片，也记录了当下的心情。",
+    "coverColor": "#e8b4b8",
+    "coverColor2": "#c9a0a4",
+    "coverEmoji": "🌸",
+    "file": "campus-spring.md"
+  },
+  {
+    "slug": "learning-dsa",
+    "title": "数据结构学习笔记：线性表与链表",
+    "date": "2026-03-20",
+    "category": "生活感悟",
+    "excerpt": "最近在复习数据结构，把线性表和链表的核心概念整理了一下，写下来加深理解。",
+    "coverColor": "#5b7fa5",
+    "coverColor2": "#3a5a7c",
+    "coverEmoji": "📚",
+    "file": "learning-dsa.md"
+  },
+  {
+    "slug": "jet-main-journey",
+    "title": "捷特专精玩家的自我修养",
+    "date": "2026-03-05",
+    "category": "游戏随笔",
+    "excerpt": "作为捷特主玩，分享一些关于这个英雄的理解：什么时候该激进、什么时候该保守。",
+    "coverColor": "#7ec8e3",
+    "coverColor2": "#3a7ca5",
+    "coverEmoji": "💨",
+    "file": "jet-main-journey.md"
+  },
+  {
+    "slug": "night-thoughts",
+    "title": "深夜随想：关于焦虑与成长",
+    "date": "2026-02-15",
+    "category": "生活感悟",
+    "excerpt": "有时候晚上睡不着，脑子里会冒出各种想法。今天把这些想法写下来，算是一种自我疗愈。",
+    "coverColor": "#2c3e50",
+    "coverColor2": "#1a252f",
+    "coverEmoji": "🌙",
+    "file": "night-thoughts.md"
+  }
+]

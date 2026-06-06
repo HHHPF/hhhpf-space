@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>管理后台 - HHHPf's Space</title>
+  <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+<div class="admin-layout">
+  <!-- 侧边栏 -->
+  <nav class="sidebar">
+    <div class="logo">⚙️ 后台管理</div>
+    <a href="dashboard.html" class="active">📊 仪表盘</a>
+    <a href="essays.html">📝 管理随笔</a>
+    <a href="gallery.html">📷 管理自拍</a>
+    <a href="valorant.html">🎯 管理集锦</a>
+    <button class="logout-btn" onclick="logout()">🚪 退出登录</button>
+  </nav>
+
+  <!-- 主内容 -->
+  <main class="main-content">
+    <h1>📊 仪表盘</h1>
+    <p class="subtitle">欢迎回来，HHHPf</p>
+
+    <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-bottom:28px;">
+      <div class="card" style="text-align:center;">
+        <div style="font-size:48px;">📝</div>
+        <div style="font-size:28px;font-weight:700;" id="essayCount">-</div>
+        <div style="color:var(--text2);">篇随笔</div>
+      </div>
+      <div class="card" style="text-align:center;">
+        <div style="font-size:48px;">📷</div>
+        <div style="font-size:28px;font-weight:700;" id="photoCount">-</div>
+        <div style="color:var(--text2);">张自拍</div>
+      </div>
+      <div class="card" style="text-align:center;">
+        <div style="font-size:48px;">🎯</div>
+        <div style="font-size:28px;font-weight:700;" id="screenshotCount">-</div>
+        <div style="color:var(--text2);">张截图</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>⚡ 快捷操作</h2>
+      <div style="display:flex; gap:12px; flex-wrap:wrap;">
+        <a href="essays.html" class="btn btn-primary">+ 写新随笔</a>
+        <a href="gallery.html" class="btn btn-outline">+ 上传自拍</a>
+        <a href="valorant.html" class="btn btn-outline">+ 添加截图</a>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script src="admin.js"></script>
+<script>
+  checkAuth();
+  async function loadStats() {
+    try {
+      const [essays, gallery, valorant] = await Promise.all([
+        fetch('/api/essays').then(r => r.json()),
+        fetch('/api/gallery').then(r => r.json()),
+        fetch('/api/valorant').then(r => r.json())
+      ]);
+      document.getElementById('essayCount').textContent = Array.isArray(essays) ? essays.length : 0;
+      document.getElementById('photoCount').textContent = Array.isArray(gallery) ? gallery.length : 0;
+      document.getElementById('screenshotCount').textContent =
+        (valorant && valorant.screenshots) ? valorant.screenshots.length : 0;
+    } catch (e) {
+      console.error(e);
+    }
+  }
+  loadStats();
+</script>
+</body>
+</html>

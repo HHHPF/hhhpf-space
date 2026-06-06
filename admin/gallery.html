@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>管理自拍 - HHHPf's Space</title>
+  <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+<div class="admin-layout">
+  <nav class="sidebar">
+    <div class="logo">⚙️ 后台管理</div>
+    <a href="dashboard.html">📊 仪表盘</a>
+    <a href="essays.html">📝 管理随笔</a>
+    <a href="gallery.html" class="active">📷 管理自拍</a>
+    <a href="valorant.html">🎯 管理集锦</a>
+    <button class="logout-btn" onclick="logout()">🚪 退出登录</button>
+  </nav>
+
+  <main class="main-content">
+    <h1>📷 管理自拍</h1>
+    <p class="subtitle">上传、查看和删除照片</p>
+
+    <!-- 单张上传 -->
+    <div class="card">
+      <h2>上传照片</h2>
+      <div class="form-row">
+        <div class="form-group">
+          <label>标题</label>
+          <input type="text" id="photoTitle" placeholder="照片描述">
+        </div>
+        <div class="form-group">
+          <label>分组</label>
+          <select id="photoGroup">
+            <option>日常随拍</option>
+            <option>氛围感写真</option>
+            <option>外景随拍</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>日期</label>
+        <input type="date" id="photoDate">
+      </div>
+      <div class="form-group">
+        <label>选择图片</label>
+        <input type="file" id="photoFile" accept="image/*" style="display:block; font-size:14px;">
+      </div>
+      <button class="btn btn-primary" onclick="uploadPhoto()">⬆ 上传</button>
+    </div>
+
+    <!-- 批量上传 -->
+    <div class="card">
+      <h2>批量上传（可多选）</h2>
+      <div class="form-group">
+        <label>分组</label>
+        <select id="batchGroup">
+          <option>日常随拍</option>
+          <option>氛围感写真</option>
+          <option>外景随拍</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>选择多张图片</label>
+        <input type="file" id="batchFiles" accept="image/*" multiple style="display:block; font-size:14px;">
+      </div>
+      <button class="btn btn-primary" onclick="batchUpload()">⬆ 批量上传</button>
+    </div>
+
+    <!-- 已有照片 -->
+    <div class="card">
+      <h2>已有照片（<span id="photoTotal">0</span> 张）</h2>
+      <div class="photo-grid" id="photoGrid">
+        <div style="color:var(--text2); padding:20px;">加载中...</div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script src="admin.js"></script>
+<script>
+  checkAuth();
+  document.getElementById('photoDate').value = new Date().toISOString().slice(0, 10);
+
+  async function loadPhotos() {
+    const resp = await fetch('/api/gallery');
+    const photos = await resp.json();
+    document.getElementById('photoTotal').textContent = photos.length;
+    const grid = document.getElementById('photoGrid');
+    if (!photos.length) {
+      grid.innerHTML = '<div style="color:var(--text2); text-align:center; padding:40px;">暂无照片，上传第一张吧 📷</div>';
+      return;
+    }
+    grid.innerHTML = photos.map((p, i) => `
+      <div class="photo-thumb">
+        <img src="${p.file || p.url || 'data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect fill=%22%23ddd%22 width=%22100%22 height=%22100%22/><text x=%2250%22 y=%2255%22 text-anchor=%22middle%22 fill=%22%23999%22 font-size=%2230%22>📷</text></svg>'}"
+             alt="${esc(p.title)}" loading="lazy" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect fill=%22%23eee%22 width=%22100%22 height=%22100%22/><text x=%2250%22 y=%2255%22 text-anchor=%22middle%22 fill=%22%23999%22 font-size=%2220%22>🖼</text></svg>'">
+        <button class="del-btn" onclick="deletePhoto(${i})">✕</button>
+      </div>
+    `).join('');
+  }
+
+  async function uploadPhoto() {
+    const file = document.getElementById('photoFile').files[0];
+    if (!file) { toast('请选择图片'); return; }
+
+    const form = new FormData();
+    form.append('image', file);
+    form.append('title', document.getElementById('photoTitle').value);
+    form.append('group', document.getElementById('photoGroup').value);
+    form.append('date', document.getElementById('photoDate').value);
+
+    const resp = await fetch('/api/gallery', { method: 'POST', body: form });
+    const data = await resp.json();
+    if (data.success) {
+      toast('✅ 上传成功');
+      document.getElementById('photoTitle').value = '';
+      document.getElementById('photoFile').value = '';
+      loadPhotos();
+    } else {
+      toast('❌ 上传失败');
+    }
+  }
+
+  async function batchUpload() {
+    const files = document.getElementById('batchFiles').files;
+    if (!files.length) { toast('请选择图片'); return; }
+
+    const form = new FormData();
+    for (const f of files) form.append('images', f);
+    form.append('groups', Array.from({ length: files.length }, () => document.getElementById('batchGroup').value));
+
+    const resp = await fetch('/api/gallery/batch', { method: 'POST', body: form });
+    const data = await resp.json();
+    if (data.success) {
+      toast(`✅ 已上传 ${data.added.length} 张`);
+      document.getElementById('batchFiles').value = '';
+      loadPhotos();
+    }
+  }
+
+  async function deletePhoto(idx) {
+    if (!confirm('确定删除这张照片？')) return;
+    await fetch(`/api/gallery/${idx}`, { method: 'DELETE' });
+    toast('🗑 已删除');
+    loadPhotos();
+  }
+
+  function esc(s) { const d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
+  loadPhotos();
+</script>
+</body>
+</html>

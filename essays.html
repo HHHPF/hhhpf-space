@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>随笔 - HHHPf's Space</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.2/marked.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="container nav-inner">
+      <a href="index.html" class="logo"><span class="dot"></span> HHHPf's Space</a>
+      <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+      <div class="nav-links" id="navLinks">
+        <a href="index.html">🏠 首页</a>
+        <a href="essays.html" class="active">✍️ 随笔</a>
+        <a href="gallery.html">📷 作者帅气自拍</a>
+        <a href="valorant.html">🎯 瓦罗兰特</a>
+        <a href="about.html">👤 关于我</a>
+      </div>
+      <div class="nav-actions">
+        <a href="http://localhost:3001/admin/login.html" class="admin-link" title="管理网站">⚙️</a>
+        <button class="theme-toggle" id="themeToggle" title="切换阅读模式">💡</button>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container essays-container">
+    <div class="essays-header">
+      <h1>✍️ 随笔专栏</h1>
+      <div class="categories" id="categoryFilters">
+        <button class="category-chip active" data-category="">全部</button>
+        <button class="category-chip" data-category="日常碎碎念">日常碎碎念</button>
+        <button class="category-chip" data-category="生活感悟">生活感悟</button>
+        <button class="category-chip" data-category="游戏随笔">游戏随笔</button>
+      </div>
+    </div>
+    <div class="essay-list" id="essayList">
+      <div class="loading">加载中...</div>
+    </div>
+    <div class="pagination" id="pagination"></div>
+  </div>
+
+  <footer class="footer">
+    <div class="container"><p>&copy; 2026 HHHPf's Space</p></div>
+  </footer>
+
+  <script src="js/theme.js"></script>
+  <script src="js/essays.js"></script>
+</body>
+</html>

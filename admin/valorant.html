@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>管理集锦 - HHHPf's Space</title>
+  <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+<div class="admin-layout">
+  <nav class="sidebar">
+    <div class="logo">⚙️ 后台管理</div>
+    <a href="dashboard.html">📊 仪表盘</a>
+    <a href="essays.html">📝 管理随笔</a>
+    <a href="gallery.html">📷 管理自拍</a>
+    <a href="valorant.html" class="active">🎯 管理集锦</a>
+    <button class="logout-btn" onclick="logout()">🚪 退出登录</button>
+  </nav>
+
+  <main class="main-content">
+    <h1>🎯 管理无畏契约集锦</h1>
+    <p class="subtitle">添加截图和视频</p>
+
+    <!-- ===== 截图管理 ===== -->
+    <div class="card">
+      <h2>📸 添加高光截图</h2>
+      <div class="form-row">
+        <div class="form-group">
+          <label>标题</label>
+          <input type="text" id="ssTitle" placeholder="如：五杀截图">
+        </div>
+        <div class="form-group">
+          <label>类型</label>
+          <select id="ssType">
+            <option>五杀</option><option>残局</option><option>高光</option><option>其他</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>英雄</label>
+          <select id="ssHero">
+            <option>捷特</option><option>蕾娜</option><option>炼狱</option>
+            <option>芮兹</option><option>钱博尔</option><option>其他</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>地图</label>
+          <select id="ssMap">
+            <option>源工重镇</option><option>亚海悬城</option><option>极地寒港</option>
+            <option>深海遗珠</option><option>莲华古城</option><option>隐世修所</option>
+            <option>双塔迷城</option><option>义境空岛</option><option>日落之城</option>
+            <option>其他</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>日期</label>
+          <input type="date" id="ssDate">
+        </div>
+        <div class="form-group">
+          <label>截图文件</label>
+          <input type="file" id="ssFile" accept="image/*" style="display:block; font-size:14px;">
+        </div>
+      </div>
+      <button class="btn btn-primary" onclick="addScreenshot()">⬆ 添加截图</button>
+    </div>
+
+    <!-- 已有截图 -->
+    <div class="card">
+      <h2>已有截图（<span id="ssTotal">0</span> 张）</h2>
+      <div class="photo-grid" id="ssGrid"><div style="color:var(--text2); padding:20px;">加载中...</div></div>
+    </div>
+
+    <!-- ===== 视频管理 ===== -->
+    <div class="card">
+      <h2>🎬 添加视频</h2>
+      <div class="form-group">
+        <label>标题</label>
+        <input type="text" id="vdTitle" placeholder="视频标题">
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>B站 BV号</label>
+          <input type="text" id="vdBvid" placeholder="如 BV1xx411c7mD">
+        </div>
+        <div class="form-group">
+          <label>抖音链接</label>
+          <input type="text" id="vdDouyin" placeholder="如 https://www.douyin.com/video/xxx">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>英雄（逗号分隔）</label>
+          <input type="text" id="vdHeroes" placeholder="如 捷特,蕾娜">
+        </div>
+        <div class="form-group">
+          <label>地图</label>
+          <select id="vdMap">
+            <option>源工重镇</option><option>亚海悬城</option><option>极地寒港</option>
+            <option>深海遗珠</option><option>莲华古城</option><option>隐世修所</option>
+            <option>其他</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>日期</label>
+        <input type="date" id="vdDate">
+      </div>
+      <button class="btn btn-primary" onclick="addVideo()">➕ 添加视频</button>
+    </div>
+
+    <!-- 已有视频 -->
+    <div class="card">
+      <h2>已有视频（<span id="vdTotal">0</span> 个）</h2>
+      <ul class="item-list" id="vdList"></ul>
+    </div>
+  </main>
+</div>
+
+<script src="admin.js"></script>
+<script>
+  checkAuth();
+  document.getElementById('ssDate').value = new Date().toISOString().slice(0, 10);
+  document.getElementById('vdDate').value = new Date().toISOString().slice(0, 10);
+
+  let data = { screenshots: [], videos: [] };
+
+  async function loadData() {
+    const resp = await fetch('/api/valorant');
+    data = await resp.json();
+
+    document.getElementById('ssTotal').textContent = data.screenshots.length;
+    document.getElementById('vdTotal').textContent = data.videos.length;
+
+    // 截图网格
+    const sg = document.getElementById('ssGrid');
+    sg.innerHTML = data.screenshots.length === 0
+      ? '<div style="color:var(--text2); text-align:center; padding:40px;">暂无截图</div>'
+      : data.screenshots.map((s, i) => `
+        <div class="photo-thumb">
+          <img src="${s.url || 'data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect fill=%22%23444%22 width=%22100%22 height=%22100%22/><text x=%2250%22 y=%2255%22 text-anchor=%22middle%22 fill=%22white%22 font-size=%2225%22>🎯</text></svg>'}"
+               alt="${esc(s.title)}" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect fill=%22%23333%22 width=%22100%22 height=%22100%22/><text x=%2250%22 y=%2255%22 text-anchor=%22middle%22 fill=%22%23999%22 font-size=%2220%22>🎯</text></svg>'">
+          <button class="del-btn" onclick="deleteScreenshot(${i})">✕</button>
+        </div>`).join('');
+
+    // 视频列表
+    const vl = document.getElementById('vdList');
+    vl.innerHTML = data.videos.length === 0
+      ? '<li style="color:var(--text2); text-align:center; padding:24px;">暂无视频</li>'
+      : data.videos.map((v, i) => `
+        <li>
+          <div class="item-info">
+            <div class="item-title">🎬 ${esc(v.title)}</div>
+            <div class="item-meta">${v.date} · ${(v.heroes||[]).join('/')} · ${v.map} · ${v.bvid ? 'B站' : v.douyin ? '抖音' : v.mp4 ? 'MP4' : '无链接'}</div>
+          </div>
+          <div class="item-actions">
+            <button class="btn btn-danger btn-sm" onclick="deleteVideo(${i})">🗑</button>
+          </div>
+        </li>`).join('');
+  }
+
+  async function addScreenshot() {
+    const form = new FormData();
+    const file = document.getElementById('ssFile').files[0];
+    if (file) form.append('image', file);
+    form.append('title', document.getElementById('ssTitle').value);
+    form.append('type', document.getElementById('ssType').value);
+    form.append('hero', document.getElementById('ssHero').value);
+    form.append('map', document.getElementById('ssMap').value);
+    form.append('date', document.getElementById('ssDate').value);
+
+    const resp = await fetch('/api/valorant/screenshots', { method: 'POST', body: form });
+    const d = await resp.json();
+    if (d.success) {
+      toast('✅ 截图已添加');
+      document.getElementById('ssTitle').value = '';
+      document.getElementById('ssFile').value = '';
+      loadData();
+    }
+  }
+
+  async function deleteScreenshot(idx) {
+    if (!confirm('确定删除？')) return;
+    await fetch(`/api/valorant/screenshots/${idx}`, { method: 'DELETE' });
+    toast('🗑 已删除');
+    loadData();
+  }
+
+  async function addVideo() {
+    const body = {
+      title: document.getElementById('vdTitle').value.trim(),
+      bvid: document.getElementById('vdBvid').value.trim(),
+      douyin: document.getElementById('vdDouyin').value.trim(),
+      heroes: document.getElementById('vdHeroes').value.trim(),
+      map: document.getElementById('vdMap').value,
+      date: document.getElementById('vdDate').value
+    };
+    if (!body.title) { toast('标题不能为空'); return; }
+
+    const resp = await fetch('/api/valorant/videos', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body)
+    });
+    const d = await resp.json();
+    if (d.success) {
+      toast('✅ 视频已添加');
+      document.getElementById('vdTitle').value = '';
+      document.getElementById('vdBvid').value = '';
+      document.getElementById('vdDouyin').value = '';
+      loadData();
+    }
+  }
+
+  async function deleteVideo(idx) {
+    if (!confirm('确定删除？')) return;
+    await fetch(`/api/valorant/videos/${idx}`, { method: 'DELETE' });
+    toast('🗑 已删除');
+    loadData();
+  }
+
+  function esc(s) { const d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
+  loadData();
+</script>
+</body>
+</html>

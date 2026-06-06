@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>随笔 - HHHPf's Space</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.2/marked.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="container nav-inner">
+      <a href="index.html" class="logo"><span class="dot"></span> HHHPf's Space</a>
+      <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+      <div class="nav-links" id="navLinks">
+        <a href="index.html">🏠 首页</a>
+        <a href="essays.html" class="active">✍️ 随笔</a>
+        <a href="gallery.html">📷 作者帅气自拍</a>
+        <a href="valorant.html">🎯 瓦罗兰特</a>
+        <a href="about.html">👤 关于我</a>
+      </div>
+      <div class="nav-actions">
+        <a href="http://localhost:3001/admin/login.html" class="admin-link" title="管理网站">⚙️</a>
+        <button class="theme-toggle" id="themeToggle" title="切换阅读模式">💡</button>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container essay-detail">
+    <a href="essays.html" class="back-link">&larr; 返回随笔列表</a>
+    <div id="essayDetail">
+      <div class="loading">加载中...</div>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container"><p>&copy; 2026 HHHPf's Space</p></div>
+  </footer>
+
+  <script src="js/theme.js"></script>
+  <script src="js/essay-detail.js"></script>
+</body>
+</html>

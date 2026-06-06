@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>后台登录 - HHHPf's Space</title>
+  <link rel="stylesheet" href="admin.css">
+</head>
+<body class="login-page">
+  <div class="login-card">
+    <h1>🔐 后台管理</h1>
+    <p>HHHPf's Space</p>
+    <input type="password" id="password" placeholder="请输入管理员密码" autofocus>
+    <button onclick="login()">登 录</button>
+    <p class="login-error" id="error">密码错误，请重试</p>
+  </div>
+
+  <script>
+    async function login() {
+      const pw = document.getElementById('password').value;
+      const err = document.getElementById('error');
+      try {
+        const resp = await fetch('/api/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ password: pw })
+        });
+        const data = await resp.json();
+        if (data.success) {
+          window.location.href = 'dashboard.html';
+        } else {
+          err.style.display = 'block';
+        }
+      } catch (e) {
+        err.textContent = '网络错误，请检查服务器';
+        err.style.display = 'block';
+      }
+    }
+    document.getElementById('password').addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') login();
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,18 @@
+{
+  "name": "hhhpf-space",
+  "version": "1.0.0",
+  "description": "HHHPf's Space - 个人三合一网站",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.21.0",
+    "express-session": "^1.18.0",
+    "multer": "^1.4.5-lts.1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs"
+}
