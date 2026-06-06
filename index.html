@@ -3,9 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>HHHPf's Space</title>
+  <title>HHHPf's Space — 个人空间</title>
   <link rel="stylesheet" href="css/style.css">
-  <!-- marked.js / highlight.js -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.2/marked.min.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
@@ -17,15 +16,15 @@
       <a href="index.html" class="logo"><span class="dot"></span> HHHPf's Space</a>
       <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
       <div class="nav-links" id="navLinks">
-        <a href="index.html" class="active">🏠 首页</a>
-        <a href="essays.html">✍️ 随笔</a>
-        <a href="gallery.html">📷 作者帅气自拍</a>
-        <a href="valorant.html">🎯 瓦罗兰特</a>
-        <a href="about.html">👤 关于我</a>
+        <a href="index.html" class="active">首页</a>
+        <a href="essays.html">随笔</a>
+        <a href="gallery.html">自拍</a>
+        <a href="valorant.html">瓦罗兰特</a>
+        <a href="about.html">关于我</a>
       </div>
       <div class="nav-actions">
-        <a href="http://localhost:3001/admin/login.html" class="admin-link" title="管理网站">⚙️</a>
-        <button class="theme-toggle" id="themeToggle" title="切换阅读模式">💡</button>
+        <a href="http://localhost:3001/admin/login.html" class="admin-link" title="管理网站">管理</a>
+        <button class="theme-toggle" id="themeToggle" title="切换主题" aria-label="切换主题">☀</button>
       </div>
     </div>
   </nav>
@@ -36,25 +35,25 @@
       <div class="banner-slide">
         <div class="bg" style="background-image:url('data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 1200 520%22><defs><linearGradient id=%22g%22 x1=%220%22 y1=%220%22 x2=%22100%22 y2=%22100%22><stop offset=%220%22 stop-color=%22%23a8927c%22/><stop offset=%22100%22 stop-color=%22%235c4a3e%22/></linearGradient></defs><rect fill=%22url(%23g)%22 width=%221200%22 height=%22520%22/><text x=%22600%22 y=%22260%22 text-anchor=%22middle%22 fill=%22%23faf9f6%22 font-size=%2248%22 font-weight=%22900%22 font-family=%22serif%22>✍️</text></svg>')"></div>
         <div class="content">
-          <h2>随笔 · 记录生活</h2>
+          <h2>记录生活的<br>每一个瞬间</h2>
           <p>日常碎碎念、生活感悟、游戏随笔</p>
-          <a href="essays.html" class="btn">去阅读 →</a>
+          <a href="essays.html" class="btn">探索随笔 →</a>
         </div>
       </div>
       <div class="banner-slide">
         <div class="bg" style="background-image:url('data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 1200 520%22><defs><linearGradient id=%22g%22 x1=%220%22 y1=%220%22 x2=%22100%22 y2=%22100%22><stop offset=%220%22 stop-color=%22%23333%22/><stop offset=%22100%22 stop-color=%22%23111%22/></linearGradient></defs><rect fill=%22url(%23g)%22 width=%221200%22 height=%22520%22/><text x=%22600%22 y=%22260%22 text-anchor=%22middle%22 fill=%22%23c9a96e%22 font-size=%2248%22 font-weight=%22900%22 font-family=%22serif%22>📷</text></svg>')"></div>
         <div class="content">
-          <h2>自拍 · 定格瞬间</h2>
+          <h2>定格属于你的<br>美好时刻</h2>
           <p>日常随拍、氛围感写真、外景记录</p>
-          <a href="gallery.html" class="btn">去欣赏 →</a>
+          <a href="gallery.html" class="btn">欣赏自拍 →</a>
         </div>
       </div>
       <div class="banner-slide">
         <div class="bg" style="background-image:url('data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 1200 520%22><defs><linearGradient id=%22g%22 x1=%220%22 y1=%220%22 x2=%22100%22 y2=%22100%22><stop offset=%220%22 stop-color=%22%23FF4655%22/><stop offset=%22100%22 stop-color=%22%230f1923%22/></linearGradient></defs><rect fill=%22url(%23g)%22 width=%221200%22 height=%22520%22/><text x=%22600%22 y=%22260%22 text-anchor=%22middle%22 fill=%22%23fff%22 font-size=%2248%22 font-weight=%22900%22 font-family=%22monospace%22>🎯</text></svg>')"></div>
         <div class="content">
-          <h2>瓦罗兰特 · 精彩集锦</h2>
+          <h2>无畏契约<br>精彩集锦</h2>
           <p>高光时刻、五杀残局、英雄操作</p>
-          <a href="valorant.html" class="btn">去观看 →</a>
+          <a href="valorant.html" class="btn">观看集锦 →</a>
         </div>
       </div>
     </div>
@@ -65,25 +64,25 @@
     </div>
   </section>
 
-  <!-- ===== 快速入口三大卡片 ===== -->
+  <!-- ===== 快速入口卡片 ===== -->
   <div class="container ambient-glow">
     <div class="section-title">
       <h2>探索我的世界</h2>
-      <p>三个板块，三种生活</p>
+      <p>三个板块 · 三种生活</p>
     </div>
     <div class="quick-cards">
       <!-- 随笔卡片 -->
       <a href="essays.html" class="quick-card animate-in delay-1">
-        <div class="card-img" style="background:linear-gradient(135deg, #a8927c 0%, #6b5b4f 100%); display:flex; align-items:center; justify-content:center; font-size:4rem;">✍️</div>
+        <div class="card-img" style="background:linear-gradient(135deg, #8b7355 0%, #5c4a3e 100%); display:flex; align-items:center; justify-content:center; font-size:4rem;">✍️</div>
         <div class="card-body">
           <h3>随笔专栏</h3>
           <p>日常碎碎念 · 生活感悟 · 游戏随笔</p>
-          <ul class="card-preview-list" id="essayPreview">  <li>加载中...</li></ul>
+          <ul class="card-preview-list" id="essayPreview"><li>加载中...</li></ul>
         </div>
       </a>
       <!-- 自拍卡片 -->
       <a href="gallery.html" class="quick-card animate-in delay-2">
-        <div class="card-img" style="background:linear-gradient(135deg, #333 0%, #1a1a1a 100%); display:flex; align-items:center; justify-content:center; font-size:4rem;">📷</div>
+        <div class="card-img" style="background:linear-gradient(135deg, #4a4a4a 0%, #1a1a1a 100%); display:flex; align-items:center; justify-content:center; font-size:4rem;">📷</div>
         <div class="card-body">
           <h3>作者帅气自拍</h3>
           <p>日常随拍 · 氛围感写真 · 外景随拍</p>
@@ -96,25 +95,25 @@
         <div class="card-body">
           <h3>瓦罗兰特集锦</h3>
           <p>高光时刻 · 五杀残局 · 英雄操作</p>
-          <ul class="card-preview-list" id="valorantPreview">  <li>加载中...</li></ul>
+          <ul class="card-preview-list" id="valorantPreview"><li>加载中...</li></ul>
         </div>
       </a>
     </div>
   </div>
 
-  <!-- ===== 主体：最新随笔 + 侧边栏 ===== -->
+  <!-- ===== 最新随笔 + 侧边栏 ===== -->
   <div class="container main-layout">
     <main>
-      <h2 style="font-size:1.4rem; font-weight:700; margin-bottom:20px;">📝 最新随笔</h2>
+      <h2 style="font-family:var(--font-display); font-size:28px; font-weight:700; margin-bottom:24px; letter-spacing:-0.01em;">最新随笔</h2>
       <div id="latestEssays" class="essay-list"></div>
     </main>
     <aside class="sidebar">
       <div class="sidebar-card">
-        <h3>👤 关于博主</h3>
-        <p>爱生活、爱游戏、爱拍照。<br>这里是我的个人小站，记录日常的一切。</p>
+        <h3>关于博主</h3>
+        <p>西南石油大学在读，爱生活、爱游戏、爱拍照。<br>这里是我的个人小站，记录日常的一切。</p>
       </div>
       <div class="sidebar-card">
-        <h3>🔥 热门集锦</h3>
+        <h3>热门集锦</h3>
         <ul class="card-preview-list" id="hotClips"></ul>
       </div>
     </aside>
@@ -123,8 +122,8 @@
   <!-- ===== 页脚 ===== -->
   <footer class="footer">
     <div class="container">
-      <p>&copy; 2026 HHHPf's Space · 个人三合一站点</p>
-      <p><a href="about.html">关于我</a> · <a href="mailto:example@email.com">📧 联系</a></p>
+      <p>© 2026 HHHPf's Space · 个人空间</p>
+      <p><a href="about.html">关于我</a> · <a href="mailto:example@email.com">联系</a></p>
     </div>
   </footer>
 

@@ -12,44 +12,42 @@
       <a href="index.html" class="logo"><span class="dot"></span> HHHPf's Space</a>
       <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
       <div class="nav-links" id="navLinks">
-        <a href="index.html">🏠 首页</a>
-        <a href="essays.html">✍️ 随笔</a>
-        <a href="gallery.html">📷 作者帅气自拍</a>
-        <a href="valorant.html" class="active">🎯 瓦罗兰特</a>
-        <a href="about.html">👤 关于我</a>
+        <a href="index.html">首页</a>
+        <a href="essays.html">随笔</a>
+        <a href="gallery.html">自拍</a>
+        <a href="valorant.html" class="active">瓦罗兰特</a>
+        <a href="about.html">关于我</a>
       </div>
       <div class="nav-actions">
-        <a href="http://localhost:3001/admin/login.html" class="admin-link" title="管理网站">⚙️</a>
-        <button class="theme-toggle" id="themeToggle" title="切换阅读模式">💡</button>
+        <a href="http://localhost:3001/admin/login.html" class="admin-link" title="管理网站">管理</a>
+        <button class="theme-toggle" id="themeToggle" title="切换主题" aria-label="切换主题">☀</button>
       </div>
     </div>
   </nav>
 
   <div class="container valorant-container">
     <div class="valorant-header">
-      <h1>🎯 无畏契约 · 精彩集锦</h1>
-      <p>高光时刻 · 五杀残局 · 英雄操作</p>
+      <h1>无畏契约 · 精彩集锦</h1>
+      <p style="color:var(--text-secondary); font-style:italic; margin-top:4px;">高光时刻 · 五杀残局 · 英雄操作</p>
     </div>
 
-    <!-- 视频区 -->
     <div class="video-section">
-      <h2>🎬 精彩视频</h2>
+      <h2>精彩视频</h2>
       <div class="video-grid" id="videoGrid">
-        <div class="loading">加载中...</div>
+        <div class="loading">加载中</div>
       </div>
     </div>
 
-    <!-- 截图图集 -->
     <div class="screenshots-section">
-      <h2>📸 高光截图</h2>
-      <div class="gallery-filters" id="screenshotDateFilter" style="justify-content:flex-start;"></div>
+      <h2>高光截图</h2>
+      <div class="gallery-filters" id="screenshotDateFilter" style="justify-content:flex-start;margin-bottom:var(--space-lg);"></div>
       <div class="screenshots-grid" id="screenshotsGrid">
-        <div class="loading">加载中...</div>
+        <div class="loading">加载中</div>
       </div>
     </div>
   </div>
 
-  <!-- 灯箱（截图放大） -->
+  <!-- 灯箱 -->
   <div class="lightbox" id="lightbox">
     <button class="close" id="lightboxClose">✕</button>
     <img src="" alt="" id="lightboxImg">

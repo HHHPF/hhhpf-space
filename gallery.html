@@ -12,26 +12,25 @@
       <a href="index.html" class="logo"><span class="dot"></span> HHHPf's Space</a>
       <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
       <div class="nav-links" id="navLinks">
-        <a href="index.html">🏠 首页</a>
-        <a href="essays.html">✍️ 随笔</a>
-        <a href="gallery.html" class="active">📷 作者帅气自拍</a>
-        <a href="valorant.html">🎯 瓦罗兰特</a>
-        <a href="about.html">👤 关于我</a>
+        <a href="index.html">首页</a>
+        <a href="essays.html">随笔</a>
+        <a href="gallery.html" class="active">自拍</a>
+        <a href="valorant.html">瓦罗兰特</a>
+        <a href="about.html">关于我</a>
       </div>
       <div class="nav-actions">
-        <a href="http://localhost:3001/admin/login.html" class="admin-link" title="管理网站">⚙️</a>
-        <button class="theme-toggle" id="themeToggle" title="切换阅读模式">💡</button>
+        <a href="http://localhost:3001/admin/login.html" class="admin-link" title="管理网站">管理</a>
+        <button class="theme-toggle" id="themeToggle" title="切换主题" aria-label="切换主题">☀</button>
       </div>
     </div>
   </nav>
 
   <div class="container gallery-container">
     <div class="gallery-header">
-      <h1>📷 作者帅气自拍</h1>
-      <p style="color:var(--text-secondary)">定格每一个美好瞬间</p>
+      <h1>作者帅气自拍</h1>
+      <p style="color:var(--text-secondary); font-style:italic; margin-top:4px;">定格每一个美好瞬间</p>
     </div>
 
-    <!-- 分类筛选 -->
     <div class="gallery-filters" id="galleryFilters">
       <button class="category-chip active" data-group="">全部</button>
       <button class="category-chip" data-group="日常随拍">日常随拍</button>
@@ -39,16 +38,14 @@
       <button class="category-chip" data-group="外景随拍">外景随拍</button>
     </div>
 
-    <!-- 年份归档 -->
     <div class="gallery-filters" id="yearFilters"></div>
 
-    <!-- 瀑布流 -->
     <div class="masonry" id="masonryGrid">
-      <div class="loading">加载中...</div>
+      <div class="loading">加载中</div>
     </div>
   </div>
 
-  <!-- 灯箱弹窗 -->
+  <!-- 灯箱 -->
   <div class="lightbox" id="lightbox">
     <button class="close" id="lightboxClose">✕</button>
     <button class="nav-btn prev" id="lightboxPrev">❮</button>

@@ -15,22 +15,23 @@
       <a href="index.html" class="logo"><span class="dot"></span> HHHPf's Space</a>
       <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
       <div class="nav-links" id="navLinks">
-        <a href="index.html">🏠 首页</a>
-        <a href="essays.html" class="active">✍️ 随笔</a>
-        <a href="gallery.html">📷 作者帅气自拍</a>
-        <a href="valorant.html">🎯 瓦罗兰特</a>
-        <a href="about.html">👤 关于我</a>
+        <a href="index.html">首页</a>
+        <a href="essays.html" class="active">随笔</a>
+        <a href="gallery.html">自拍</a>
+        <a href="valorant.html">瓦罗兰特</a>
+        <a href="about.html">关于我</a>
       </div>
       <div class="nav-actions">
-        <a href="http://localhost:3001/admin/login.html" class="admin-link" title="管理网站">⚙️</a>
-        <button class="theme-toggle" id="themeToggle" title="切换阅读模式">💡</button>
+        <a href="http://localhost:3001/admin/login.html" class="admin-link" title="管理网站">管理</a>
+        <button class="theme-toggle" id="themeToggle" title="切换主题" aria-label="切换主题">☀</button>
       </div>
     </div>
   </nav>
 
   <div class="container essays-container">
     <div class="essays-header">
-      <h1>✍️ 随笔专栏</h1>
+      <h1>随笔专栏</h1>
+      <p style="color:var(--text-secondary); font-style:italic; margin-top:4px;">记录日常的点滴思考</p>
       <div class="categories" id="categoryFilters">
         <button class="category-chip active" data-category="">全部</button>
         <button class="category-chip" data-category="日常碎碎念">日常碎碎念</button>
@@ -39,7 +40,7 @@
       </div>
     </div>
     <div class="essay-list" id="essayList">
-      <div class="loading">加载中...</div>
+      <div class="loading">加载中</div>
     </div>
     <div class="pagination" id="pagination"></div>
   </div>

@@ -7,11 +7,17 @@
   // === 主题切换 ===
   const html = document.documentElement;
   const STORAGE_KEY = 'hhhpf-space-theme';
+  const themeBtn = document.getElementById('themeToggle');
 
   function getTheme() {
     const saved = localStorage.getItem(STORAGE_KEY);
     if (saved === 'light' || saved === 'dark') return saved;
-    return 'dark'; // 默认暗色电竞风
+    return 'dark'; // 默认暗色
+  }
+
+  function updateToggleIcon(theme) {
+    if (!themeBtn) return;
+    themeBtn.textContent = theme === 'light' ? '☽' : '☀';
   }
 
   function applyTheme(theme) {
@@ -21,6 +27,7 @@
       html.classList.remove('light-mode');
     }
     localStorage.setItem(STORAGE_KEY, theme);
+    updateToggleIcon(theme);
   }
 
   function toggleTheme() {
@@ -30,7 +37,6 @@
 
   applyTheme(getTheme());
 
-  const themeBtn = document.getElementById('themeToggle');
   if (themeBtn) {
     themeBtn.addEventListener('click', toggleTheme);
   }
@@ -42,7 +48,6 @@
     hamburger.addEventListener('click', () => {
       navLinks.classList.toggle('open');
     });
-    // 点击链接后关闭
     navLinks.querySelectorAll('a').forEach(a => {
       a.addEventListener('click', () => navLinks.classList.remove('open'));
     });
