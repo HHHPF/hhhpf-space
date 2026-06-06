@@ -1,5 +1,4 @@
 node_modules/
-uploads/
 serve.ps1
 package.json
 package-lock.json
