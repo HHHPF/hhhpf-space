@@ -55,6 +55,12 @@
             <span class="category-tag">${escapeHTML(meta.category || '未分类')}</span>
           </div>
           <div class="essay-content">${content}</div>
+          <div style="margin-top:32px; padding-top:20px; border-top:1px solid var(--border); display:flex; align-items:center; gap:12px;">
+            <button class="like-btn" id="likeBtn" data-slug="${escapeHTML(slug)}">
+              ❤️ <span class="like-count" id="likeCount">-</span>
+            </button>
+            <span style="font-size:13px; color:var(--text-muted);" id="likeHint"></span>
+          </div>
         </article>
       `;
 
@@ -73,9 +79,46 @@
         }).catch(() => alert('复制失败，请手动选择'));
       });
 
+      // 点赞功能
+      initLikes(slug);
+
     } catch (err) {
       showError(`❌ ${err.message}`);
     }
+  }
+
+  async function initLikes(slug) {
+    const likeBtn = document.getElementById('likeBtn');
+    const likeCount = document.getElementById('likeCount');
+    const likeHint = document.getElementById('likeHint');
+    if (!likeBtn || !likeCount) return;
+
+    try {
+      const resp = await fetch(`/api/likes/${slug}`);
+      const data = await resp.json();
+      likeCount.textContent = data.count || 0;
+    } catch (e) {
+      likeCount.textContent = '0';
+    }
+
+    likeBtn.addEventListener('click', async () => {
+      if (likeBtn.classList.contains('liked')) return;
+      try {
+        const resp = await fetch(`/api/likes/${slug}`, { method: 'POST' });
+        const data = await resp.json();
+        if (data.success) {
+          likeBtn.classList.add('liked');
+          likeCount.textContent = data.count;
+          if (likeHint) { likeHint.textContent = '感谢点赞！'; setTimeout(() => { likeHint.textContent = ''; }, 2000); }
+        } else if (resp.status === 403) {
+          likeBtn.classList.add('liked');
+          likeCount.textContent = data.count;
+          if (likeHint) likeHint.textContent = '你已经赞过了';
+        }
+      } catch (e) {
+        if (likeHint) likeHint.textContent = '点赞失败，请稍后再试';
+      }
+    });
   }
 
   function showError(msg) {

@@ -994,6 +994,49 @@ h4, .h4 {
 }
 .copy-btn:active { transform: scale(0.95); }
 
+/* ===== 点赞按钮 ===== */
+.like-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 18px;
+  font-size: 14px;
+  font-weight: 500;
+  background: var(--bg-alt);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-pill);
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  letter-spacing: 0.02em;
+  user-select: none;
+}
+.like-btn:hover {
+  background: rgba(255, 70, 85, 0.08);
+  border-color: #FF4655;
+  color: #FF4655;
+}
+.like-btn:active { transform: scale(0.95); }
+.like-btn.liked {
+  background: #FF4655;
+  color: #fff;
+  border-color: #FF4655;
+}
+.like-btn .like-count {
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+/* 随笔卡片上的点赞数 */
+.essay-likes {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 13px;
+  color: var(--text-tertiary);
+}
+.essay-likes::before { content: '❤️'; font-size: 12px; }
+
 /* ===== 瀑布流画廊 ===== */
 .masonry {
   columns: 3;

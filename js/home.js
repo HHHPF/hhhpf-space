@@ -82,11 +82,14 @@
           <div class="essay-meta">
             <span>📅 ${formatDate(e.date)}</span>
             <span class="category-tag">${escapeHTML(e.category || '未分类')}</span>
+            <span class="essay-likes" data-likes-slug="${escapeHTML(e.slug)}">0</span>
           </div>
           <p class="essay-excerpt">${escapeHTML(e.excerpt || '')}</p>
         </div>
       </article>
     `).join('') || '<div class="empty">暂无随笔</div>';
+
+    loadEssayLikes();
   }
 
   function renderHotClips(valorant) {
@@ -106,6 +109,22 @@
     const div = document.createElement('div');
     div.textContent = str;
     return div.innerHTML;
+  }
+
+  async function loadEssayLikes() {
+    const spans = document.querySelectorAll('[data-likes-slug]');
+    if (!spans.length) return;
+    const slugs = [...new Set([...spans].map(s => s.dataset.likesSlug))];
+    try {
+      const results = await Promise.all(slugs.map(slug =>
+        fetch(`/api/likes/${slug}`).then(r => r.json()).catch(() => ({ count: 0 }))
+      ));
+      const map = {};
+      slugs.forEach((slug, i) => { map[slug] = results[i].count || 0; });
+      spans.forEach(span => {
+        span.textContent = map[span.dataset.likesSlug] || 0;
+      });
+    } catch (e) { /* use defaults */ }
   }
 
   init();
