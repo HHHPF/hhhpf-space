@@ -1,0 +1,42 @@
+{
+  "siteName": "HHHPf's Space",
+  "about": {
+    "name": "你好，我是 HHHPf",
+    "avatar": "🧑‍💻",
+    "subtitle": "西南石油大学 · 爱生活 · 爱游戏 · 爱拍照",
+    "sections": [
+      {
+        "title": "建站初衷",
+        "content": "一直想拥有一个属于自己的个人空间，可以随意记录日常、分享游戏高光时刻、展示摄影作品。不追求流量，只想要一个小众的、属于自己的角落。"
+      },
+      {
+        "title": "更新计划",
+        "content": "随笔：想到什么写什么，不定期更新\n自拍：有好照片就传，按年份归档\n瓦罗兰特：高光时刻随时更新"
+      },
+      {
+        "title": "联系方式",
+        "content": "📧 邮箱：example@email.com\n🐱 GitHub：点击访问\n🎮 瓦罗兰特 ID：HHHPf#0000"
+      }
+    ]
+  },
+  "sections": {
+    "essays": {
+      "name": "随笔",
+      "emoji": "✍️",
+      "cardTitle": "随笔专栏",
+      "cardDesc": "日常碎碎念 · 生活感悟 · 游戏随笔"
+    },
+    "gallery": {
+      "name": "自拍",
+      "emoji": "📷",
+      "cardTitle": "作者帅气自拍",
+      "cardDesc": "日常随拍 · 氛围感写真 · 外景随拍"
+    },
+    "valorant": {
+      "name": "瓦罗兰特",
+      "emoji": "🎯",
+      "cardTitle": "瓦罗兰特集锦",
+      "cardDesc": "高光时刻 · 五杀残局 · 英雄操作"
+    }
+  }
+}

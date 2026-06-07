@@ -16,11 +16,11 @@
       <a href="index.html" class="logo"><span class="dot"></span> HHHPf's Space</a>
       <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
       <div class="nav-links" id="navLinks">
-        <a href="index.html" class="active">首页</a>
-        <a href="essays.html">随笔</a>
-        <a href="gallery.html">自拍</a>
-        <a href="valorant.html">瓦罗兰特</a>
-        <a href="about.html">关于我</a>
+        <a href="index.html" class="active" data-section="home">首页</a>
+        <a href="essays.html" data-section="essays">随笔</a>
+        <a href="gallery.html" data-section="gallery">自拍</a>
+        <a href="valorant.html" data-section="valorant">瓦罗兰特</a>
+        <a href="about.html" data-section="about">关于我</a>
       </div>
       <div class="nav-actions">
         <a href="/admin/login.html" class="admin-link" title="管理网站">管理</a>
@@ -72,7 +72,7 @@
     </div>
     <div class="quick-cards">
       <!-- 随笔卡片 -->
-      <a href="essays.html" class="quick-card animate-in delay-1">
+      <a href="essays.html" class="quick-card animate-in delay-1" data-section="essays">
         <div class="card-img" style="background:linear-gradient(135deg, #8b7355 0%, #5c4a3e 100%); display:flex; align-items:center; justify-content:center; font-size:4rem;">✍️</div>
         <div class="card-body">
           <h3>随笔专栏</h3>
@@ -81,7 +81,7 @@
         </div>
       </a>
       <!-- 自拍卡片 -->
-      <a href="gallery.html" class="quick-card animate-in delay-2">
+      <a href="gallery.html" class="quick-card animate-in delay-2" data-section="gallery">
         <div class="card-img" style="background:linear-gradient(135deg, #4a4a4a 0%, #1a1a1a 100%); display:flex; align-items:center; justify-content:center; font-size:4rem;">📷</div>
         <div class="card-body">
           <h3>作者帅气自拍</h3>
@@ -90,7 +90,7 @@
         </div>
       </a>
       <!-- Valorant 卡片 -->
-      <a href="valorant.html" class="quick-card animate-in delay-3">
+      <a href="valorant.html" class="quick-card animate-in delay-3" data-section="valorant">
         <div class="card-img" style="background:linear-gradient(135deg, #FF4655 0%, #0f1923 100%); display:flex; align-items:center; justify-content:center; font-size:4rem;">🎯</div>
         <div class="card-body">
           <h3>瓦罗兰特集锦</h3>
@@ -128,6 +128,7 @@
   </footer>
 
   <script src="js/theme.js"></script>
+  <script src="js/nav.js"></script>
   <script src="js/home.js"></script>
 </body>
 </html>

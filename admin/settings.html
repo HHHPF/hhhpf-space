@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>站点设置 - HHHPf's Space</title>
+  <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+<div class="admin-layout">
+  <nav class="sidebar">
+    <div class="logo">⚙️ 后台管理</div>
+    <a href="dashboard.html">📊 仪表盘</a>
+    <a href="essays.html">📝 管理随笔</a>
+    <a href="gallery.html">📷 管理自拍</a>
+    <a href="valorant.html">🎯 管理集锦</a>
+    <a href="settings.html" class="active">⚡ 站点设置</a>
+    <button class="logout-btn" onclick="logout()">🚪 退出登录</button>
+  </nav>
+
+  <main class="main-content">
+    <h1>⚡ 站点设置</h1>
+    <p class="subtitle">编辑关于我页面 · 自定义栏目名称</p>
+
+    <!-- 站点名称 -->
+    <div class="card">
+      <h2>🌐 站点名称</h2>
+      <div class="form-group">
+        <label>网站标题</label>
+        <input type="text" id="siteName" placeholder="HHHPf's Space">
+      </div>
+    </div>
+
+    <!-- 关于我 -->
+    <div class="card">
+      <h2>👤 关于我</h2>
+      <div class="form-row">
+        <div class="form-group">
+          <label>显示名称</label>
+          <input type="text" id="aboutName" placeholder="你好，我是 HHHPf">
+        </div>
+        <div class="form-group">
+          <label>头像 Emoji</label>
+          <input type="text" id="aboutAvatar" placeholder="🧑‍💻" maxlength="4">
+        </div>
+      </div>
+      <div class="form-group">
+        <label>副标题</label>
+        <input type="text" id="aboutSubtitle" placeholder="西南石油大学 · 爱生活 · 爱游戏 · 爱拍照">
+      </div>
+      <h3 style="margin-top:16px; margin-bottom:8px;">内容区块</h3>
+      <div id="aboutSections"><p style="color:var(--text2);">加载中...</p></div>
+      <button class="btn btn-outline btn-sm" onclick="addAboutSection()" style="margin-top:8px;">+ 添加区块</button>
+    </div>
+
+    <!-- 栏目名称 -->
+    <div class="card">
+      <h2>📂 栏目设置</h2>
+      <div class="form-row" style="grid-template-columns: repeat(3, 1fr);">
+        <div class="form-group">
+          <label>随笔栏目名称</label>
+          <input type="text" id="secEssaysName" placeholder="随笔">
+        </div>
+        <div class="form-group">
+          <label>Emoji</label>
+          <input type="text" id="secEssaysEmoji" placeholder="✍️" maxlength="4">
+        </div>
+        <div class="form-group" style="grid-column: 1 / -1;">
+          <label>首页卡片标题</label>
+          <input type="text" id="secEssaysTitle" placeholder="随笔专栏">
+        </div>
+        <div class="form-group" style="grid-column: 1 / -1;">
+          <label>首页卡片描述</label>
+          <input type="text" id="secEssaysDesc" placeholder="日常碎碎念 · 生活感悟 · 游戏随笔">
+        </div>
+      </div>
+      <hr style="border:none; border-top:1px solid var(--border); margin:16px 0;">
+      <div class="form-row" style="grid-template-columns: repeat(3, 1fr);">
+        <div class="form-group">
+          <label>自拍栏目名称</label>
+          <input type="text" id="secGalleryName" placeholder="自拍">
+        </div>
+        <div class="form-group">
+          <label>Emoji</label>
+          <input type="text" id="secGalleryEmoji" placeholder="📷" maxlength="4">
+        </div>
+        <div class="form-group" style="grid-column: 1 / -1;">
+          <label>首页卡片标题</label>
+          <input type="text" id="secGalleryTitle" placeholder="作者帅气自拍">
+        </div>
+        <div class="form-group" style="grid-column: 1 / -1;">
+          <label>首页卡片描述</label>
+          <input type="text" id="secGalleryDesc" placeholder="日常随拍 · 氛围感写真 · 外景随拍">
+        </div>
+      </div>
+      <hr style="border:none; border-top:1px solid var(--border); margin:16px 0;">
+      <div class="form-row" style="grid-template-columns: repeat(3, 1fr);">
+        <div class="form-group">
+          <label>瓦罗兰特栏目名称</label>
+          <input type="text" id="secValorantName" placeholder="瓦罗兰特">
+        </div>
+        <div class="form-group">
+          <label>Emoji</label>
+          <input type="text" id="secValorantEmoji" placeholder="🎯" maxlength="4">
+        </div>
+        <div class="form-group" style="grid-column: 1 / -1;">
+          <label>首页卡片标题</label>
+          <input type="text" id="secValorantTitle" placeholder="瓦罗兰特集锦">
+        </div>
+        <div class="form-group" style="grid-column: 1 / -1;">
+          <label>首页卡片描述</label>
+          <input type="text" id="secValorantDesc" placeholder="高光时刻 · 五杀残局 · 英雄操作">
+        </div>
+      </div>
+    </div>
+
+    <button class="btn btn-primary" onclick="saveSettings()" style="font-size:16px; padding:12px 40px;">💾 保存所有设置</button>
+    <span id="saveStatus" style="margin-left:12px; font-size:14px; color:var(--text2);"></span>
+  </main>
+</div>
+
+<script src="admin.js"></script>
+<script>
+  checkAuth();
+  let settingsLoaded = false;
+  let aboutSections = [];
+
+  async function loadSettings() {
+    try {
+      const resp = await fetch('/api/settings');
+      const s = await resp.json();
+      if (!s || !s.about) return;
+
+      // 站点名称
+      document.getElementById('siteName').value = s.siteName || '';
+
+      // 关于我
+      document.getElementById('aboutName').value = s.about.name || '';
+      document.getElementById('aboutAvatar').value = s.about.avatar || '';
+      document.getElementById('aboutSubtitle').value = s.about.subtitle || '';
+      aboutSections = s.about.sections || [];
+      renderAboutSections();
+
+      // 栏目
+      const sec = s.sections || {};
+      document.getElementById('secEssaysName').value = (sec.essays && sec.essays.name) || '随笔';
+      document.getElementById('secEssaysEmoji').value = (sec.essays && sec.essays.emoji) || '✍️';
+      document.getElementById('secEssaysTitle').value = (sec.essays && sec.essays.cardTitle) || '随笔专栏';
+      document.getElementById('secEssaysDesc').value = (sec.essays && sec.essays.cardDesc) || '';
+
+      document.getElementById('secGalleryName').value = (sec.gallery && sec.gallery.name) || '自拍';
+      document.getElementById('secGalleryEmoji').value = (sec.gallery && sec.gallery.emoji) || '📷';
+      document.getElementById('secGalleryTitle').value = (sec.gallery && sec.gallery.cardTitle) || '作者帅气自拍';
+      document.getElementById('secGalleryDesc').value = (sec.gallery && sec.gallery.cardDesc) || '';
+
+      document.getElementById('secValorantName').value = (sec.valorant && sec.valorant.name) || '瓦罗兰特';
+      document.getElementById('secValorantEmoji').value = (sec.valorant && sec.valorant.emoji) || '🎯';
+      document.getElementById('secValorantTitle').value = (sec.valorant && sec.valorant.cardTitle) || '瓦罗兰特集锦';
+      document.getElementById('secValorantDesc').value = (sec.valorant && sec.valorant.cardDesc) || '';
+
+      settingsLoaded = true;
+    } catch (e) {
+      toast('加载设置失败');
+    }
+  }
+
+  function renderAboutSections() {
+    const el = document.getElementById('aboutSections');
+    if (!aboutSections.length) {
+      el.innerHTML = '<p style="color:var(--text2);">暂无区块</p>';
+      return;
+    }
+    el.innerHTML = aboutSections.map((s, i) => `
+      <div style="border:1px solid var(--border); border-radius:8px; padding:12px; margin-bottom:10px; display:flex; gap:10px; align-items:flex-start;">
+        <div style="flex:1;">
+          <input type="text" value="${escAttr(s.title)}" placeholder="区块标题" style="width:100%; margin-bottom:6px; padding:8px 10px; border:1px solid var(--border); border-radius:6px; font-size:14px;" data-about-title="${i}">
+          <textarea placeholder="区块内容（换行分隔）" style="width:100%; min-height:60px; padding:8px 10px; border:1px solid var(--border); border-radius:6px; font-size:14px;" data-about-content="${i}" rows="3">${escAttr(s.content)}</textarea>
+        </div>
+        <button class="btn btn-danger btn-sm" onclick="removeAboutSection(${i})" style="flex-shrink:0;">✕</button>
+      </div>
+    `).join('');
+  }
+
+  function addAboutSection() {
+    aboutSections.push({ title: '新区块', content: '在这里写内容...' });
+    renderAboutSections();
+  }
+
+  function removeAboutSection(i) {
+    aboutSections.splice(i, 1);
+    renderAboutSections();
+  }
+
+  function collectAboutSections() {
+    const container = document.getElementById('aboutSections');
+    const titleInputs = container.querySelectorAll('[data-about-title]');
+    const contentAreas = container.querySelectorAll('[data-about-content]');
+
+    // Rebuild from original aboutSections
+    const result = [];
+    titleInputs.forEach(inp => {
+      const i = parseInt(inp.dataset.aboutTitle);
+      const contentArea = container.querySelector(`[data-about-content="${i}"]`);
+      result.push({
+        title: inp.value.trim() || aboutSections[i].title,
+        content: contentArea ? contentArea.value.trim() : aboutSections[i].content
+      });
+    });
+    return result.length ? result : aboutSections;
+  }
+
+  async function saveSettings() {
+    const status = document.getElementById('saveStatus');
+
+    // Collect about sections from UI
+    aboutSections = collectAboutSections();
+
+    const body = {
+      siteName: document.getElementById('siteName').value.trim() || "HHHPf's Space",
+      about: {
+        name: document.getElementById('aboutName').value.trim(),
+        avatar: document.getElementById('aboutAvatar').value.trim() || '🧑‍💻',
+        subtitle: document.getElementById('aboutSubtitle').value.trim(),
+        sections: aboutSections
+      },
+      sections: {
+        essays: {
+          name: document.getElementById('secEssaysName').value.trim() || '随笔',
+          emoji: document.getElementById('secEssaysEmoji').value.trim() || '✍️',
+          cardTitle: document.getElementById('secEssaysTitle').value.trim() || '随笔专栏',
+          cardDesc: document.getElementById('secEssaysDesc').value.trim()
+        },
+        gallery: {
+          name: document.getElementById('secGalleryName').value.trim() || '自拍',
+          emoji: document.getElementById('secGalleryEmoji').value.trim() || '📷',
+          cardTitle: document.getElementById('secGalleryTitle').value.trim() || '作者帅气自拍',
+          cardDesc: document.getElementById('secGalleryDesc').value.trim()
+        },
+        valorant: {
+          name: document.getElementById('secValorantName').value.trim() || '瓦罗兰特',
+          emoji: document.getElementById('secValorantEmoji').value.trim() || '🎯',
+          cardTitle: document.getElementById('secValorantTitle').value.trim() || '瓦罗兰特集锦',
+          cardDesc: document.getElementById('secValorantDesc').value.trim()
+        }
+      }
+    };
+
+    try {
+      const resp = await fetch('/api/settings', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body)
+      });
+      const data = await resp.json();
+      if (data.success) {
+        status.textContent = '✅ 已保存';
+        status.style.color = 'var(--green)';
+        toast('✅ 站点设置已保存');
+      } else {
+        status.textContent = '❌ ' + (data.error || '保存失败');
+        status.style.color = 'var(--red)';
+      }
+    } catch (e) {
+      status.textContent = '❌ 网络错误';
+      status.style.color = 'var(--red)';
+    }
+    setTimeout(() => { status.textContent = ''; }, 3000);
+  }
+
+  function escAttr(s) {
+    if (!s) return '';
+    return s.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  }
+
+  loadSettings();
+</script>
+</body>
+</html>
