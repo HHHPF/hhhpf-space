@@ -1,0 +1,8 @@
+# HHHPf's Space — Cloudflare Pages 配置
+name = "hhhpf-space"
+pages_build_output_dir = ""
+
+# 后续启用 Functions 后端时取消注释:
+# [[kv_namespaces]]
+# binding = "DATA_KV"
+# id = "your-kv-id"
