@@ -1,7 +1,7 @@
 [
   {
     "slug": "my-post",
-    "title": "111",
+    "title": "关于cloudflare的操作",
     "date": "2026-06-07",
     "category": "日常碎碎念",
     "excerpt": "",
@@ -9,16 +9,5 @@
     "coverColor2": "#6b5b4f",
     "coverEmoji": "📝",
     "file": "my-post.md"
-  },
-  {
-    "slug": "my",
-    "title": "ceshi",
-    "date": "2026-06-07",
-    "category": "日常碎碎念",
-    "excerpt": "",
-    "coverColor": "#a8927c",
-    "coverColor2": "#6b5b4f",
-    "coverEmoji": "📝",
-    "file": "my.md"
   }
 ]
